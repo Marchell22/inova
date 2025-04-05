@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Pendaftaran;
 use app\models\User;
 use Yii;
 use yii\web\Controller;
@@ -49,8 +50,33 @@ class DashboardController extends Controller
         if (Yii::$app->user->identity->hasRole('admin')) {
             return $this->redirect(['dashboard/admin']);
         }
+        $model = new Pendaftaran();
+        $userId = Yii::$app->user->id;
+        $pendaftaranList = \app\models\Pendaftaran::find()
+            ->where(['user_id' => $userId])
+            ->orderBy(['created_at' => SORT_DESC])
+            ->all();
+        return $this->render('index',['model' => $model,  'pendaftaranList' => $pendaftaranList,]);
+    }
+    public function actionCreatependaftaran()
+    {
+        $model = new \app\models\Pendaftaran();
 
-        return $this->render('index');
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->id; // ✅ Set user yang login
+            $model->status = 'Menunggu'; // ✅ Default status (bila diperlukan)
+
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Pendaftaran berhasil dibuat.');
+            } else {
+                Yii::$app->session->setFlash('error', 'Gagal menyimpan pendaftaran.');
+            }
+
+            return $this->redirect(['dashboard/index']);
+        }
+
+        // Tambahkan redirect / fallback jika bukan POST
+        return $this->redirect(['dashboard/index']);
     }
     public function actionAdmin()
     {

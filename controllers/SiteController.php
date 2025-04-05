@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\SignupForm;
 
 class SiteController extends Controller
 {
@@ -61,11 +62,51 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            // Arahkan ke halaman dashboard setelah login berhasil
+            return $this->redirect(['dashboard/index']);
+        }
+
+
+        $model->password = '';
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
     public function actionRegister()
     {
-        return $this->render('register');
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new SignupForm();
+        return $this->render('register', [
+            'model' => $model,
+        ]);
+    }
+    
+    public function actionDoRegister()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new SignupForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Terima kasih telah mendaftar. Silahkan login untuk melanjutkan.');
+            return $this->redirect(['site/index']);
+        }
+
+        // Render register view with errors
+        return $this->render('register', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -95,12 +136,12 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    // public function actionLogout()
-    // {
-    //     Yii::$app->user->logout();
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
 
-    //     return $this->goHome();
-    // }
+        return $this->goHome();
+    }
 
     /**
      * Displays contact page.

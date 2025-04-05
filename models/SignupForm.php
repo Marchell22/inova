@@ -1,11 +1,10 @@
 <?php
 
-namespace frontend\models;
+namespace app\models;
 
 use Yii;
 use yii\base\Model;
 use app\models\User;
-
 
 /**
  * Signup form
@@ -30,14 +29,14 @@ class SignupForm extends Model
 
             ['username', 'trim'],
             ['username', 'required', 'message' => 'Username tidak boleh kosong'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Username ini sudah digunakan.'],
+            ['username', 'unique', 'targetClass' => User::class, 'message' => 'Username ini sudah digunakan.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required', 'message' => 'Email tidak boleh kosong'],
             ['email', 'email', 'message' => 'Email tidak valid.'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Email ini sudah digunakan.'],
+            ['email', 'unique', 'targetClass' => User::class, 'message' => 'Email ini sudah digunakan.'],
 
             ['password', 'required', 'message' => 'Password tidak boleh kosong'],
             ['password', 'string', 'min' => 6, 'message' => 'Password minimal 6 karakter.'],
@@ -64,10 +63,18 @@ class SignupForm extends Model
         $user->username = $this->username;
         $user->email = $this->email;
         $user->fullname = $this->fullname;
-        $user->status = User::STATUS_ACTIVE;
+        $user->status = 'user';
         $user->setPassword($this->password);
         $user->generateAuthKey();
 
-        return $user->save();
+        if ($user->save()) {
+            // Assign role 'user' to the new user
+            $auth = Yii::$app->authManager;
+            $userRole = $auth->getRole('user');
+            if ($userRole) {
+                $auth->assign($userRole, $user->id);
+            }
+            return true;
+        }
     }
 }

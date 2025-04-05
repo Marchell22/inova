@@ -16,12 +16,16 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'f5htUlEquHUHLovzbe03ZTf2Czx_BAUW',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager', // Gunakan database untuk RBAC
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'loginUrl' => [''],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -42,14 +46,16 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'login' => 'site/index',
+                'register' => 'site/register',
+                'do-register' => 'site/do-register',
+                '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

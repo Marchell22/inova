@@ -9,7 +9,7 @@ class m250404_181635_add_fullname_and_status_to_user_table extends Migration
      */
     public function safeUp()
     {
-
+        $this->addColumn('{{%user}}', 'fullname', $this->string()->after('username'));
     }
 
     /**
@@ -17,9 +17,7 @@ class m250404_181635_add_fullname_and_status_to_user_table extends Migration
      */
     public function safeDown()
     {
-        echo "m250404_181635_add_fullname_and_status_to_user_table cannot be reverted.\n";
-
-        return false;
+        $this->dropColumn('{{%user}}', 'fullname');
     }
 
     /*

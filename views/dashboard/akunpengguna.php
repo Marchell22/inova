@@ -27,8 +27,8 @@ $totalUsers = \app\models\User::find()->count();
                 <div class="list-group list-group-flush">
                     <?= Html::a('Dashboard', ['dashboard/admin'], ['class' => 'list-group-item list-group-item-action']) ?>
                     <?= Html::a('Pengguna', ['dashboard/akunpengguna'], ['class' => 'list-group-item list-group-item-action active']) ?>
-                    <?= Html::a('Pengaturan', ['setting/index'], ['class' => 'list-group-item list-group-item-action']) ?>
-                    <?= Html::a('Laporan', ['report/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Wilayah', ['wilayah/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Obat', ['obat/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                     <?= Html::a('Database', ['db/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                     <?= Html::a('Keamanan', ['security/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                 </div>

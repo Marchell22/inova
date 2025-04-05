@@ -40,20 +40,22 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             'brandUrl' => Yii::$app->homeUrl,
             'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
         ]);
+        $menuItems = [];
+
+        if (Yii::$app->user->isGuest) {
+            $menuItems[] = ['label' => '🔐 Login', 'url' => ['/site/index']];
+            $menuItems[] = ['label' => '📝 Register', 'url' => ['/site/register']];
+        } else {
+            $menuItems[] = [
+                'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                'url' => ['/site/logout'],
+                'linkOptions' => ['data-method' => 'post']
+            ];
+        }
+
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav'],
-            'items' => [
-                Yii::$app->user->isGuest
-                    ? ['label' => 'Login', 'url' => ['/'], 'label' => 'Register', 'url' => ['/site/register']]
-                    : '<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-            ]
+            'options' => ['class' => 'navbar-nav ms-auto'],
+            'items' => $menuItems,
         ]);
         NavBar::end();
         ?>
@@ -61,7 +63,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
     <main id="main" class="flex-shrink-0" role="main">
         <div class="container">
-           
+
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>

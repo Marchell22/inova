@@ -22,12 +22,12 @@ $totalUsers = \app\models\User::find()->count();
                     <h5 class="card-title mb-0">Admin Menu</h5>
                 </div>
                 <div class="list-group list-group-flush">
-                    <?= Html::a('<i class="fa fa-tachometer-alt mr-2"></i> Dashboard', ['dashboard/admin'], ['class' => 'list-group-item list-group-item-action active']) ?>
-                    <?= Html::a('<i class="fa fa-users mr-2"></i> Pengguna', ['dashboard/akunpengguna'], ['class' => 'list-group-item list-group-item-action']) ?>
-                    <?= Html::a('<i class="fa fa-cog mr-2"></i> Pengaturan', ['setting/index'], ['class' => 'list-group-item list-group-item-action']) ?>
-                    <?= Html::a('<i class="fa fa-chart-bar mr-2"></i> Laporan', ['report/index'], ['class' => 'list-group-item list-group-item-action']) ?>
-                    <?= Html::a('<i class="fa fa-database mr-2"></i> Database', ['db/index'], ['class' => 'list-group-item list-group-item-action']) ?>
-                    <?= Html::a('<i class="fa fa-shield-alt mr-2"></i> Keamanan', ['security/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Dashboard', ['dashboard/admin'], ['class' => 'list-group-item list-group-item-action active']) ?>
+                    <?= Html::a('Pengguna', ['dashboard/akunpengguna'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Wilayah', ['wilayah/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Obat', ['obat/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Database', ['db/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Keamanan', ['security/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                 </div>
             </div>
         </div>

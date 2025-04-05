@@ -23,11 +23,13 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  */
+
 class User extends ActiveRecord implements IdentityInterface
 {
+    public $password;
     const STATUS_DELETED = 'deleted';
     const STATUS_INACTIVE = 'inactive';
-    const STATUS_ACTIVE = 'active';
+    const STATUS_ADMIN = 'admin';
     const STATUS_USER = 'user';
 
     /**
@@ -56,12 +58,19 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_USER],
             ['status', 'in', 'range' => [
-                self::STATUS_ACTIVE,
+                self::STATUS_ADMIN,
                 self::STATUS_INACTIVE,
                 self::STATUS_DELETED,
                 self::STATUS_USER
             ]],
-            ['fullname', 'string', 'max' => 255],
+            [['username', 'email', 'fullname', 'status'], 'required'],
+            [['username', 'email', 'fullname', 'status'], 'string', 'max' => 255],
+            [['email'], 'email'],
+            [['created_at', 'updated_at'], 'integer'],
+            [['fullname', 'username', 'email', 'status'], 'required'],
+            ['password', 'required', 'on' => 'create'],
+            ['password', 'safe', 'on' => 'update'],
+            
         ];
     }
 
@@ -198,5 +207,16 @@ class User extends ActiveRecord implements IdentityInterface
         $auth->assign($role, $this->id);
 
         return true;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Username',
+            'email' => 'Email',
+            'fullname' => 'Nama Lengkap',
+            'status' => 'Status',
+            'password' => 'Password',
+        ];
     }
 }

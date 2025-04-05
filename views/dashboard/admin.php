@@ -23,7 +23,7 @@ $totalUsers = \app\models\User::find()->count();
                 </div>
                 <div class="list-group list-group-flush">
                     <?= Html::a('<i class="fa fa-tachometer-alt mr-2"></i> Dashboard', ['dashboard/admin'], ['class' => 'list-group-item list-group-item-action active']) ?>
-                    <?= Html::a('<i class="fa fa-users mr-2"></i> Pengguna', ['user/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('<i class="fa fa-users mr-2"></i> Pengguna', ['dashboard/akunpengguna'], ['class' => 'list-group-item list-group-item-action']) ?>
                     <?= Html::a('<i class="fa fa-cog mr-2"></i> Pengaturan', ['setting/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                     <?= Html::a('<i class="fa fa-chart-bar mr-2"></i> Laporan', ['report/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                     <?= Html::a('<i class="fa fa-database mr-2"></i> Database', ['db/index'], ['class' => 'list-group-item list-group-item-action']) ?>

@@ -10,6 +10,8 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
+
+
 AppAsset::register($this);
 
 $this->registerCsrfMetaTags();
@@ -59,9 +61,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
     <main id="main" class="flex-shrink-0" role="main">
         <div class="container">
-            <?php if (!empty($this->params['breadcrumbs'])): ?>
-                <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
-            <?php endif ?>
+           
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>

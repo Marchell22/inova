@@ -30,7 +30,7 @@ $totalUsers = \app\models\User::find()->count();
                     <?= Html::a('Wilayah', ['wilayah/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                     <?= Html::a('Obat', ['obat/index'], ['class' => 'list-group-item list-group-item-action active']) ?>
                     <?= Html::a('Pegawai', ['pegawai/index'], ['class' => 'list-group-item list-group-item-action']) ?>
-                    <?= Html::a('Keamanan', ['security/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Tindakan', ['tindakan/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                 </div>
             </div>
         </div>

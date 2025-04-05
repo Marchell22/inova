@@ -27,14 +27,14 @@ $totalUsers = \app\models\User::find()->count();
                     <?= Html::a('Wilayah', ['wilayah/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                     <?= Html::a('Obat', ['obat/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                     <?= Html::a('Pegawai', ['pegawai/index'], ['class' => 'list-group-item list-group-item-action active']) ?>
-                    <?= Html::a('Keamanan', ['security/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Tindakan', ['tindakan/index'], ['class' => 'list-group-item list-group-item-action']) ?>
                 </div>
             </div>
         </div>
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Daftar Wilayah</h5>
+                    <h5 class="mb-0">Daftar Pegawai</h5>
                 </div>
                 <div class="card-body">
                     <p>

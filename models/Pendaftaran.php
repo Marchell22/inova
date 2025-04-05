@@ -35,6 +35,17 @@ class Pendaftaran extends ActiveRecord
             [['dokter_id', 'user_id'], 'integer'],
             [['created_at'], 'safe'],
             [['nama', 'status'], 'string', 'max' => 255],
+
+            // Tindakan dan Obat sebagai opsional
+            [['tindakan_id', 'obat_id'], 'integer', 'skipOnEmpty' => true],
+            [['tindakan_id', 'obat_id'], 'default', 'value' => null],
+
+            [['harga'], 'number'],
+            [['harga'], 'default', 'value' => 0],
+            // Foreign key constraints dengan skipOnError dan skipOnEmpty
+            [['dokter_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pegawai::class, 'targetAttribute' => ['dokter_id' => 'id']],
+            [['tindakan_id'], 'exist', 'skipOnError' => true, 'skipOnEmpty' => true, 'targetClass' => Tindakan::class, 'targetAttribute' => ['tindakan_id' => 'id']],
+            [['obat_id'], 'exist', 'skipOnError' => true, 'skipOnEmpty' => true, 'targetClass' => Obat::class, 'targetAttribute' => ['obat_id' => 'id']],
         ];
     }
 
@@ -58,5 +69,14 @@ class Pendaftaran extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+    public function getTindakan()
+    {
+        return $this->hasOne(Tindakan::class, ['id' => 'tindakan_id']);
+    }
+
+    public function getObat()
+    {
+        return $this->hasOne(Obat::class, ['id' => 'obat_id']);
     }
 }

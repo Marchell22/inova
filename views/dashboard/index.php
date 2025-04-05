@@ -23,7 +23,8 @@ $dokterList = ArrayHelper::map(Pegawai::find()->all(), 'id', 'nama');
                     <h5 class="card-title mb-0">User Menu</h5>
                 </div>
                 <div class="list-group list-group-flush">
-                    <?= Html::a('Dashboard', ['dashboard/index'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('Dashboard', ['dashboard/index'], ['class' => 'list-group-item list-group-item-action active']) ?>
+                    <?= Html::a('Pembayaran', ['pembayaran/index'], ['class' => 'list-group-item list-group-item-action ']) ?>
                 </div>
             </div>
         </div>
